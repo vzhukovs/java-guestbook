@@ -4,7 +4,7 @@ metadata:
 components:
   - name: tools
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-d433ed6
+      image: quay.io/devfile/universal-developer-image:ubi8-0e189d9
       memoryLimit: 3Gi
 
       endpoints:
@@ -67,7 +67,7 @@ commands:
     exec:
       label: "build backend"
       component: tools
-      workingDir: "${PROJECTS_ROOT}/java-guestbook/backend"
+      workingDir: ${PROJECT_SOURCE}/backend
       commandLine: "mvn clean install"
       group:
         kind: build
@@ -77,7 +77,7 @@ commands:
     exec:
       label: "build frontend"
       component: tools
-      workingDir: "${PROJECTS_ROOT}/java-guestbook/frontend"
+      workingDir: ${PROJECT_SOURCE}/frontend
       commandLine: "mvn clean install"
       group:
         kind: build
@@ -87,7 +87,7 @@ commands:
     exec:
       label: "run backend"
       component: tools
-      workingDir: "${PROJECTS_ROOT}/java-guestbook/backend"
+      workingDir: ${PROJECT_SOURCE}/backend
       commandLine: |
         java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006,quiet=y \
         -jar target/backend-1.0.jar
@@ -99,7 +99,7 @@ commands:
     exec:
       label: "run frontend"
       component: tools
-      workingDir: "${PROJECTS_ROOT}/java-guestbook/frontend"
+      workingDir: ${PROJECT_SOURCE}/frontend
       commandLine: |
         java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005,quiet=y \
         -jar target/frontend-1.0.jar
